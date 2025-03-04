@@ -1,0 +1,39 @@
+@use './assets/scss/vars' as v;
+
+// Allmänna regler
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: v.$font;
+    background-color: v.$green;
+    background-image: url('./assets/images/paper.png');
+    background-size: cover;
+    color: v.$gold;
+    width: 100%;
+    max-width: 2500px;
+    margin: auto;
+    overflow-x: hidden;
+}
+
+h1,
+h2,
+h3 {
+    font-weight: 200;
+}
+
+nav ul li {
+    list-style: none;
+
+    a {
+        text-decoration: none;
+    }
+}
+
+img {
+    width: 100%;
+}
