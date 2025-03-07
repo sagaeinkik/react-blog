@@ -1,0 +1,38 @@
+@use 'vars' as v;
+
+/* Styling för HomePage-sidan */
+
+//Omslutande wrapper
+.fp-grid-wrap {
+    padding: 0.5em;
+    margin: auto;
+    display: grid;
+    grid-template-columns: 3fr 1fr;
+    grid-gap: 0.5em;
+
+    h2 {
+        font-style: italic;
+    }
+
+    //Divider
+    img {
+        width: 70%;
+        display: block;
+        margin: 1.5em auto;
+    }
+}
+
+//Sidenav
+.sideNav {
+    li {
+        margin-top: 0.5em;
+    }
+
+    a {
+        color: white;
+
+        &:hover {
+            color: v.$gold;
+        }
+    }
+}

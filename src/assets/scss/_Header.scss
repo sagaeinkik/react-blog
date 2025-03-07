@@ -1,0 +1,41 @@
+@use 'vars' as v;
+
+/* Styling för Header-komponenten */
+header nav {
+    padding: 1em;
+    margin-bottom: 2em;
+    ul {
+        display: flex;
+        justify-content: space-evenly;
+
+        li a {
+            color: white;
+
+            &.active,
+            &:hover {
+                color: v.$gold;
+            }
+        }
+    }
+}
+
+.hero {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 2em;
+    margin-bottom: 2em;
+
+    //Pegasus
+    img {
+        width: 15em;
+        margin: auto;
+        display: block;
+    }
+
+    //En bra blogg
+    h1 {
+        font-size: 3em;
+    }
+}

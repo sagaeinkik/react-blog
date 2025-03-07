@@ -9,7 +9,7 @@ const LoggedInLayout = () => {
             <Outlet />
         </main>
         <footer>
-            <p>Sidfot</p>
+            <p>Gjord av S.E.K på Mittuniversitetet 2025</p>
         </footer>
     </>
   )

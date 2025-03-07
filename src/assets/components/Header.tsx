@@ -1,4 +1,6 @@
 import { NavLink } from "react-router-dom"
+import Pegasus from "../images/pegasus.svg";
+import "../scss/_Header.scss";
 
 const Header = () => {
   return (
@@ -10,6 +12,10 @@ const Header = () => {
                 <li><NavLink to="/login">Logga in</NavLink></li>
             </ul>
         </nav>
+        <div className="hero">
+            <img src={Pegasus} alt="Pegasus" />
+            <h1>En Bra Blogg</h1>
+        </div>
     </header>
   )
 }

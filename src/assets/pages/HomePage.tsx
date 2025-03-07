@@ -1,4 +1,7 @@
 import { useBlogPosts } from "../context/PostContext";
+import Divider from "../images/divider.svg";
+import SideNav from "../components/SideNav";
+import "../scss/_HomePage.scss"
 
 const HomePage = () => {
 
@@ -10,18 +13,24 @@ const HomePage = () => {
 
   return (
     <>
-      <h1>The Good Blog</h1>
+      <div className="fp-grid-wrap">
+      <div className="posts-container">
+
       <h2>Senaste inläggen</h2>
       {loading && <p>Laddar inlägg...</p>}
       {error && <p>{error}</p>}
 
       {latestFivePosts.map(post => (
-        <article key={post._id}>
+        <article key={post._id} className="post">
           <h3>{post.title}</h3>
-          <p>{post.content}</p>
-          <p>Publicerat: {new Date(post.posted).toLocaleString()}</p>
+          <p className="content">{post.content}</p>
+          <p className="posted">Publicerat: {new Date(post.posted).toLocaleString()}</p>
+        <img src={Divider} alt="Avskiljare" />
         </article>
       ))}
+      </div> {/* Slut på posts-container */}
+      <SideNav />
+      </div> {/* Slut på fp-grid-wrap */}
     </>
   )
 }

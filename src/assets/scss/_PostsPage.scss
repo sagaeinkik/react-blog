@@ -1,0 +1,42 @@
+@use 'vars' as v;
+
+/* Stilregler för Alla inlägg-sidan */
+
+.blog-list {
+    list-style: none;
+
+    li {
+        margin: 1em 0;
+        border-radius: 10px;
+
+        //Länkarna
+        a {
+            color: v.$gold;
+            padding: 1em 0;
+            display: block;
+            text-decoration: none;
+
+            //titel
+            .title {
+                font-size: 1.2em;
+            }
+
+            //Stympad text
+            .truncated {
+                color: v.$textcolor;
+                @include v.transition;
+            }
+
+            //Hover-effekt
+            &:hover .truncated {
+                color: v.$paleblue;
+            }
+        }
+
+        //Bilden
+        img {
+            max-width: 35em;
+            margin: auto;
+        }
+    }
+}
