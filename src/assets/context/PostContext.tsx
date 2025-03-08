@@ -1,7 +1,6 @@
-import { BlogPost, NewBlogPost, BlogPostContextType } from "../types/post.type";
+import { BlogPost, NewBlogPost, BlogPostResponse, BlogPostContextType } from "../types/post.type";
 import React, { createContext, useContext, useState, useEffect } from "react";
 import { getCookie } from "../utils/cookieHandling";
-
 
 //Variabler
 let apiUrl: string = "https://blogapi.up.railway.app/posts";
@@ -12,6 +11,7 @@ const BlogPostContext = createContext<BlogPostContextType>({
     posts: [], 
     loading: false, 
     error: null, 
+    success: null, 
     fetchPosts: async () => {},
     addPost: async () => {},
     updatePost: async () => {},
@@ -24,6 +24,7 @@ export const BlogPostProvider: React.FC<{children: React.ReactNode}> = ({childre
     const [posts, setPosts] = useState<BlogPost[]>([]);
     const [loading, setLoading] = useState<boolean>(true);
     const [error, setError] = useState<string | null>(null);
+    const [success, setSuccess] = useState<string | null>(null);
 
     
     //Fetch-anrop för att hämta alla inlägg
@@ -35,12 +36,13 @@ export const BlogPostProvider: React.FC<{children: React.ReactNode}> = ({childre
 
             //Hämta alla inlägg
             const response = await fetch(apiUrl); 
+            const data = await response.json();
 
             if(!response.ok) {
-                throw new Error("Kunde inte hämta poster...");
+                setError(data.https_response?.message || data.message || "Kunde inte hämta inlägg...");
+                return;
             }
 
-            const data = await response.json();
             setPosts(data); 
 
         } catch (err) {
@@ -66,15 +68,22 @@ export const BlogPostProvider: React.FC<{children: React.ReactNode}> = ({childre
                 }, 
                 body: JSON.stringify(newPost)
             });
+            const data: BlogPostResponse = await response.json(); 
 
             if(!response.ok) {
-                throw new Error("Något gick fel vid skapandet av inlägg...");
+                setError(data.https_response?.message || data.message || "Kunde inte skapa inlägg...");
+                return;
             }
+            
+            //Om svaret är att det har gått bra
+            if(data.post) {
+                const addedPost: BlogPost = data.post;
 
-            const addedPost: BlogPost = await response.json(); 
+                setSuccess(data.message);
 
-            //Uppdatera local state med nya posten
-            setPosts(currentPosts => [addedPost, ...currentPosts]);
+                //Uppdatera local state med nya posten
+                setPosts(currentPosts => [addedPost, ...currentPosts]);
+            }
             
         } catch (err) {
             setError(err instanceof Error ? err.message : "Något gick fel vid skapandet av inlägget.");
@@ -100,12 +109,19 @@ export const BlogPostProvider: React.FC<{children: React.ReactNode}> = ({childre
             body: JSON.stringify(updatedPost)
         });
 
+        const data: BlogPostResponse = await response.json();
+
         if(!response.ok) {
-            throw new Error("Något gick fel vid uppdatering av inlägg...");
+            setError(data.https_response?.message || data.message || "Kunde inte uppdatera inlägg...");
+            return;
         }
         
-        //Uppdatera local state
-        setPosts(currentPosts => currentPosts.map(post => post._id === id ? { ...post, ...updatedPost } : post));
+        //Om svaret är att posten är uppdaterad
+        if(data.post) {
+            setSuccess(data.message);
+            //Uppdatera state
+            setPosts(currentPosts => currentPosts.map(post => post._id === id ? { ...post, ...updatedPost } : post));
+        }
 
         } catch (err) {
             setError(err instanceof Error ? err.message : "Något gick fel vid uppdatering av inlägget.");
@@ -115,6 +131,7 @@ export const BlogPostProvider: React.FC<{children: React.ReactNode}> = ({childre
     };
 
 
+    //Ta bort inlägg
     const deletePost = async (id: number) => {
         setError(null);
 
@@ -127,13 +144,18 @@ export const BlogPostProvider: React.FC<{children: React.ReactNode}> = ({childre
                     "Authorization": `Bearer ${token}`
                 }
             });
+            const data = await response.json();
 
             if(!response.ok) {
-                throw new Error("Något gick fel vid borttagning av inlägg...");
+                setError(data.https_response?.message || data.message || "Kunde inte ta bort inlägg...");
+                return; 
             }
 
-            //Uppdatera local state
-            setPosts(currentPosts => currentPosts.filter(post => post._id !== id));
+            if(data.post) {
+                //Uppdatera local state
+                setPosts(currentPosts => currentPosts.filter(post => post._id !== id));
+                setSuccess(data.message);
+            }
 
         } catch (err) {
             setError(err instanceof Error ? err.message : "Något gick fel vid borttagning av inlägget.");
@@ -149,7 +171,7 @@ export const BlogPostProvider: React.FC<{children: React.ReactNode}> = ({childre
 
     //Returnera allt!
     return (
-        <BlogPostContext.Provider value={{posts, loading, error, fetchPosts, addPost, updatePost, deletePost}}>
+        <BlogPostContext.Provider value={{posts, loading, error, success, fetchPosts, addPost, updatePost, deletePost}}>
             {children}
         </BlogPostContext.Provider>)
 }

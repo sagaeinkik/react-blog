@@ -50,7 +50,8 @@ img {
 
 //Transition på länkar och knappar
 a,
-button {
+button,
+input[type='submit'] {
     @include v.transition;
 }
 
@@ -79,6 +80,16 @@ footer {
     margin-top: 2em;
     padding: 1.5em;
     text-align: center;
+}
+
+//Allmänna regler input
+input {
+    font-size: 1em;
+    font-family: v.$font;
+}
+label {
+    display: block;
+    margin-top: 1em;
 }
 
 //Poster (delas mellan flera sidor)

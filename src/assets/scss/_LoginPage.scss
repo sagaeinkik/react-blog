@@ -1,0 +1,43 @@
+@use 'vars' as v;
+
+/* Stilregler för inloggningsformulär */
+
+.login-form {
+    width: 80%;
+    margin: auto;
+
+    label {
+        color: v.$gold;
+    }
+
+    //Användarnamn och lösenord
+    input:not([type='submit']) {
+        width: 100%;
+        padding: 0.8em;
+        margin: 0.5em 0 1em;
+        color: v.$textcolor;
+        border: none;
+        background-color: v.$niceblue;
+        border-bottom: 1px solid v.$gold;
+
+        &:focus {
+            outline: none;
+            background-color: v.$paleblue;
+        }
+    }
+
+    //Logga in-knapp
+    input[type='submit'] {
+        padding: 0.8em 1.3em;
+        margin-top: 1em;
+        border: none;
+        background-color: v.$gold;
+        color: v.$niceblue;
+        border-radius: 5px;
+
+        &:hover {
+            background-color: v.$paleblue;
+            color: v.$gold;
+        }
+    }
+}

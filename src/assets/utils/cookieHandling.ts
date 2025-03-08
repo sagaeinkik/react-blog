@@ -8,6 +8,11 @@ export function cookieCreator(data: JwtData): void {
     document.cookie = `jwt=${data.token}; max-age=10800; path=/;`;
 }
 
+//Radera JWT-cookie
+export function cookieDestroyer(): void {
+    document.cookie = 'jwt=; max-age=0; path=/;';
+}
+
 //Hämta cookievärde
 export function getCookie(name: string): string | null {
     const value = `; ${document.cookie}`;
