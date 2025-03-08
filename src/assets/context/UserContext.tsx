@@ -6,7 +6,7 @@ import { cookieCreator, cookieDestroyer, checkUser } from "../utils/cookieHandli
 const AuthContext = createContext<UserContextType>({
     username: null, 
     isAuthenticated: false,
-    loading: false,
+    loading: true,
     error: null,
     success: null,
     login: async () => {},
@@ -33,9 +33,11 @@ export const AuthProvider: React.FC<{children: ReactNode}> = ({children}) => {
         if(isLoggedIn) {
             setIsAuthenticated(true);
             setUsername(localStorage.getItem("username"));
+            setLoading(false)
         } else {
             setIsAuthenticated(false);
             setUsername(null);
+            setLoading(false)
         }
     }
 
@@ -57,7 +59,7 @@ export const AuthProvider: React.FC<{children: ReactNode}> = ({children}) => {
             }); 
 
             const data: LoginResponse = await response.json();
-            console.log(data);
+            
 
             //Felmeddelande från API
             if(!response.ok) {

@@ -16,6 +16,16 @@ header nav {
                 color: v.$gold;
             }
         }
+
+        button {
+            color: v.$paleblue;
+            background-color: rgba(0, 0, 0, 0);
+            border: none;
+
+            &:hover {
+                color: v.$gold;
+            }
+        }
     }
 }
 
@@ -24,18 +34,23 @@ header nav {
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    gap: 2em;
+    gap: 0.5em;
     margin-bottom: 2em;
 
     //Pegasus
     img {
         width: 15em;
-        margin: auto;
+        margin: 2em auto;
         display: block;
     }
 
     //En bra blogg
     h1 {
         font-size: 3em;
+    }
+
+    //Inloggad som
+    p {
+        color: white;
     }
 }

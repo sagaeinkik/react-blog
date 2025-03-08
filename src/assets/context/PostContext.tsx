@@ -15,8 +15,11 @@ const BlogPostContext = createContext<BlogPostContextType>({
     fetchPosts: async () => {},
     addPost: async () => {},
     updatePost: async () => {},
-    deletePost: async () => {}
+    deletePost: async () => {}, 
+    resetSuccess: () => {}
 });
+
+
 
 //Provider
 export const BlogPostProvider: React.FC<{children: React.ReactNode}> = ({children}) => {
@@ -25,6 +28,13 @@ export const BlogPostProvider: React.FC<{children: React.ReactNode}> = ({childre
     const [loading, setLoading] = useState<boolean>(true);
     const [error, setError] = useState<string | null>(null);
     const [success, setSuccess] = useState<string | null>(null);
+
+    // Funktion för att återställa success-meddelandet
+    const resetSuccess = () => {
+        setTimeout(() => {
+            setSuccess(null);
+        }, 5000)
+    };
 
     
     //Fetch-anrop för att hämta alla inlägg
@@ -43,7 +53,7 @@ export const BlogPostProvider: React.FC<{children: React.ReactNode}> = ({childre
                 return;
             }
 
-            setPosts(data); 
+            setPosts(data);
 
         } catch (err) {
             setError(err instanceof Error ? err.message : "Något gick fel vid hämtning av alla inlägg.");
@@ -80,6 +90,7 @@ export const BlogPostProvider: React.FC<{children: React.ReactNode}> = ({childre
                 const addedPost: BlogPost = data.post;
 
                 setSuccess(data.message);
+                resetSuccess();
 
                 //Uppdatera local state med nya posten
                 setPosts(currentPosts => [addedPost, ...currentPosts]);
@@ -121,6 +132,7 @@ export const BlogPostProvider: React.FC<{children: React.ReactNode}> = ({childre
             setSuccess(data.message);
             //Uppdatera state
             setPosts(currentPosts => currentPosts.map(post => post._id === id ? { ...post, ...updatedPost } : post));
+            resetSuccess();
         }
 
         } catch (err) {
@@ -155,6 +167,7 @@ export const BlogPostProvider: React.FC<{children: React.ReactNode}> = ({childre
                 //Uppdatera local state
                 setPosts(currentPosts => currentPosts.filter(post => post._id !== id));
                 setSuccess(data.message);
+                resetSuccess();
             }
 
         } catch (err) {
@@ -164,6 +177,8 @@ export const BlogPostProvider: React.FC<{children: React.ReactNode}> = ({childre
         }
     };
 
+    
+
     //Hämta inlägg vid mount
     useEffect(() => {
         fetchPosts();
@@ -171,7 +186,7 @@ export const BlogPostProvider: React.FC<{children: React.ReactNode}> = ({childre
 
     //Returnera allt!
     return (
-        <BlogPostContext.Provider value={{posts, loading, error, success, fetchPosts, addPost, updatePost, deletePost}}>
+        <BlogPostContext.Provider value={{posts, loading, error, success, fetchPosts, addPost, updatePost, deletePost, resetSuccess}}>
             {children}
         </BlogPostContext.Provider>)
 }

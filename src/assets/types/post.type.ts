@@ -38,4 +38,5 @@ export interface BlogPostContextType {
     addPost: (post: NewBlogPost) => Promise<void>;
     updatePost: (id: number, updatedPost: NewBlogPost) => Promise<void>;
     deletePost: (id: number) => Promise<void>;
+    resetSuccess: () => void;
 }

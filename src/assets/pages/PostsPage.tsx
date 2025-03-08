@@ -11,6 +11,8 @@ const PostsPage = () => {
   const truncateContent = (content: string) => {
     if(content.length > 100) {
       return content.slice(0, 100) + "...";
+    } else {
+      return content; 
     }
   }
 
