@@ -6,8 +6,6 @@ import "../scss/_Header.scss";
 const Header = () => {
   const { username, isAuthenticated, logout} = useAuth(); 
 
-
-  
   return (
     <header>
         <nav>

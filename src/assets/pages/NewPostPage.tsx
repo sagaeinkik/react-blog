@@ -1,13 +1,13 @@
-import { useAuth } from "../context/UserContext";
+/* import { useAuth } from "../context/UserContext"; */
 import { useBlogPosts } from "../context/PostContext";
-import { useNavigate } from 'react-router-dom';
-import { useState, useEffect} from 'react';
+/* import { useNavigate } from 'react-router-dom'; */
+import { useState, /* useEffect */} from 'react';
 
 
-const NewPostPage = () => {
-    const { isAuthenticated, /* loading */ } = useAuth();
+const NewPostPage = () => {/* 
+    const { isAuthenticated,  } = useAuth(); */
     const { error, loading, success, addPost } = useBlogPosts();
-    const navigate = useNavigate();
+    /* const navigate = useNavigate(); */
 
     //States
     const [title, setTitle] = useState<string>('');
@@ -17,11 +17,11 @@ const NewPostPage = () => {
     //Omdirigera om användare ej är inloggad
     /* Obs något är lurt här! Om man refreshar sidan som inloggad eller skriver in url manuellt omdirigeras man. 
     vet ej varför. :( */
-    useEffect(() => {
-        if(/* !loading &&  */!isAuthenticated) {
+    /* useEffect(() => {
+        if(!isAuthenticated) {
             navigate('/login');
         }
-    }, [isAuthenticated]);
+    }, [isAuthenticated]); */
 
     //Formulär
     const handleSubmit = (e: any) => {

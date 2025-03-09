@@ -104,7 +104,7 @@ export const BlogPostProvider: React.FC<{children: React.ReactNode}> = ({childre
     };
 
     //Uppdatera befintligt inlägg
-    const updatePost = async (id: number, updatedPost: NewBlogPost) => {
+    const updatePost = async (id: string, updatedPost: NewBlogPost) => {
         setError(null); 
 
         try {
@@ -131,7 +131,7 @@ export const BlogPostProvider: React.FC<{children: React.ReactNode}> = ({childre
         if(data.post) {
             setSuccess(data.message);
             //Uppdatera state
-            setPosts(currentPosts => currentPosts.map(post => post._id === id ? { ...post, ...updatedPost } : post));
+            setPosts(currentPosts => currentPosts.map(post => String(post._id) === id ? { ...post, ...updatedPost } : post));
             resetSuccess();
         }
 
@@ -144,7 +144,7 @@ export const BlogPostProvider: React.FC<{children: React.ReactNode}> = ({childre
 
 
     //Ta bort inlägg
-    const deletePost = async (id: number) => {
+    const deletePost = async (id: string) => {
         setError(null);
 
         try {
@@ -165,7 +165,7 @@ export const BlogPostProvider: React.FC<{children: React.ReactNode}> = ({childre
 
             if(data.post) {
                 //Uppdatera local state
-                setPosts(currentPosts => currentPosts.filter(post => post._id !== id));
+                setPosts(currentPosts => currentPosts.filter(post => String(post._id) !== id));
                 setSuccess(data.message);
                 resetSuccess();
             }

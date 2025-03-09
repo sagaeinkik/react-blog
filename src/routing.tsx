@@ -3,8 +3,10 @@ import HomePage from "./assets/pages/HomePage";
 import LoginPage from "./assets/pages/LoginPage";
 import PostPage from "./assets/pages/PostPage";
 import PostsPage from "./assets/pages/PostsPage";
-import NewPostPage from "./assets/pages/NewPostPage"
+import NewPostPage from "./assets/pages/NewPostPage"; 
+import EditPage from "./assets/pages/EditPage"
 import Layout from "./assets/layouts/Layout";
+import ProtectedRoute from "./assets/components/ProtectedRoute"
 
 const router = createBrowserRouter([
     {
@@ -25,7 +27,11 @@ const router = createBrowserRouter([
             },
             {
                 path: "/createpost", 
-                element: <NewPostPage />
+                element: <ProtectedRoute><NewPostPage /></ProtectedRoute>
+            },
+            {
+                path: "/edit/:id", 
+                element: <ProtectedRoute><EditPage /></ProtectedRoute>
             },
             {
                 path: "/login", 

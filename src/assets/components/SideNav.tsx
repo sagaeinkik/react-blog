@@ -16,7 +16,7 @@ const SideNav = () => {
   return (
     <div className="sideNav">
         <h2>Fler inlägg</h2>
-        {loading && <p>Laddar inlägg...</p>}
+        {loading && <p>Laddar...</p>}
         {error && <p>{error}</p>}
         <nav>
         <ul>

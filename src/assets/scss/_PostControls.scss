@@ -1,0 +1,22 @@
+@use 'vars' as v;
+
+/* Styling för redigera och ta bort-knapparna */
+
+.post-controls {
+    margin-top: 1em;
+    display: flex;
+    justify-content: space-between;
+
+    button {
+        border: none;
+        padding: 0.6em 1em;
+        border-radius: 5px;
+        background-color: v.$paleblue;
+        color: v.$gold;
+
+        &:hover {
+            background-color: v.$gold;
+            color: v.$paleblue;
+        }
+    }
+}

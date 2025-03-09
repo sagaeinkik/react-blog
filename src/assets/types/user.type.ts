@@ -1,6 +1,6 @@
 //Allt om användare i databas
 export interface User {
-    _id: number;
+    _id: string;
     username: string;
     password: string;
     registered: string;

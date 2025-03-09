@@ -5,6 +5,7 @@
 //Omslutande wrapper
 .fp-grid-wrap {
     padding: 0.5em;
+    max-width: 1500px;
     margin: auto;
     display: grid;
     grid-template-columns: 3fr 1fr;
@@ -18,7 +19,7 @@
     img {
         width: 70%;
         display: block;
-        margin: 1.5em auto;
+        margin: 4em auto;
     }
 }
 

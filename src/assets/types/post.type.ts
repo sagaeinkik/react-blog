@@ -1,6 +1,6 @@
 //Allt som lagras om blogpost i databasen
 export interface BlogPost {
-    _id: number;
+    _id: string;
     title: string;
     content: string;
     posted: string;
@@ -36,7 +36,7 @@ export interface BlogPostContextType {
     success: string | null;
     fetchPosts: () => Promise<void>;
     addPost: (post: NewBlogPost) => Promise<void>;
-    updatePost: (id: number, updatedPost: NewBlogPost) => Promise<void>;
-    deletePost: (id: number) => Promise<void>;
+    updatePost: (id: string, updatedPost: NewBlogPost) => Promise<void>;
+    deletePost: (id: string) => Promise<void>;
     resetSuccess: () => void;
 }
