@@ -121,7 +121,7 @@ textarea {
     border: 1px solid v.$gold;
 }
 
-//Logga in-knapp
+//Skicka in-knappar
 input[type='submit'] {
     padding: 0.8em 1.3em;
     margin-top: 1em;
@@ -183,4 +183,16 @@ input[type='submit'] {
 
 .success {
     color: white;
+}
+
+/* MEDIA QUERIES */
+@media (max-width: 850px) {
+    //Bredda
+    .page-wrap {
+        width: 95%;
+    }
+
+    main {
+        padding: 0.5em;
+    }
 }
