@@ -1,14 +1,12 @@
 import { useState, useEffect } from 'react';
-import { useParams, /* useNavigate */ } from 'react-router-dom'; 
+import { useParams } from 'react-router-dom'; 
 import { useBlogPosts } from "../context/PostContext";
-/* import { useAuth } from "../context/UserContext"; */
 
 
 const EditPage = () => {
     const { id } = useParams<{ id: string }>();
     const { posts, loading, error, success, updatePost } = useBlogPosts();
-    /* const {isAuthenticated} = useAuth();
-    const navigate = useNavigate(); */
+    
 
     //Hitta inlägg
     const post = posts.find(post => String(post._id) === id);
@@ -20,10 +18,6 @@ const EditPage = () => {
 
     //Läs in värdena från post 
     useEffect(() => {
-        //Omdirigera användare
-        /* if(!isAuthenticated) {
-            navigate("/login");
-        } */
 
         if(post) {
             setTitle(post.title);
